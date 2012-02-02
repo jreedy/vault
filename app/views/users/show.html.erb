@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<table border="1">
+  <tr>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Role one</th>
+    <th>Role two</th>
+    <th>Role three</th>
+    <th></th>
+  </tr>
+
+  <tr>
+    <td><%= @user.username %></td>
+    <td><%= if @user.password then "********" else "" %></td>
+    <td><%= if @user.role_one then "*" else "" end %></td>
+    <td><%= if @user.role_two then "*" else "" end %></td>
+    <td><%= if @user.role_three then "*" else "" end %></td>
+    <td><%= link_to 'Edit', edit_user_path(@user) %></td>
+  </tr>
+
+</table>
+
+<br />
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

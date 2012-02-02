@@ -1,0 +1,28 @@
+<h1>Vault Users</h1>
+
+<table border="1">
+  <tr>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Role one</th>
+    <th>Role two</th>
+    <th>Role three</th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.username %></td>
+    <td><%= user.encrypted_password %></td>
+    <td><%= if user.role_one then "*" else "" end %></td>
+    <td><%= if user.role_two then "*" else "" end %></td>
+    <td><%= if user.role_three then "*" else "" end %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+  </tr>
+<% end %>
+</table>
+<p id="notice"><%= notice %></p>
+
+<br />
+
+<%#= link_to 'New User', new_user_path %>
