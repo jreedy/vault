@@ -1,2 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+one:
+  username: user1
+  encrypted_password: <%= Digest::SHA1.hexdigest('password') %> 
+  role_one: true
+  role_two: false
+  role_three: true
+
+two:
+  username: user2
+  encrypted_password: <%= Digest::SHA1.hexdigest('password') %>
+  role_one: false
+  role_two: true
+  role_three: false
+  
+three:
+  username: user3
+  encrypted_password: <%= Digest::SHA1.hexdigest('password') %>
+  role_one: false
+  role_two: false
+  role_three: true
+  

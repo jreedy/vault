@@ -28,6 +28,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal Digest::SHA1.hexdigest("password"), u.encrypted_password
   end
   
+  test "Can't create a user without a password" do
+    u = User.create(:username => "foobar")
+    assert_equal u.errors.first.first, :password
+    assert_equal "is too short (minimum is 6 characters)", u.errors.first.last
+  end
+  
+  test "Short password is rejected" do
+    u = User.create(:username => "foobar", :password => "pass", :password_confirmation => "pass")  
+    assert_equal u.errors.first.first, :password
+    assert_equal "is too short (minimum is 6 characters)", u.errors.first.last
+  end
+  
   test "Long password is rejected" do
     u = User.create(:username => "foobar", :password => "passwordpasswordpasswordpa", :password_confirmation => "passwordpasswordpasswordpa")
     assert_equal u.errors.first.first, :password
@@ -68,6 +80,26 @@ class UserTest < ActiveSupport::TestCase
     assert u.errors.empty?
     assert_not_equal old_encrypted_password, User.find(users(:one).id).encrypted_password
     assert_equal Digest::SHA1.hexdigest("foobarpass"), User.find(users(:one).id).encrypted_password
+  end
+
+  test "Can't remove user's password" do
+    u = User.find(users(:one).id)
+    old_encrypted_password = u.encrypted_password
+    u.password = nil
+    u.password_confirmation = nil
+    u.save
+    assert u.errors.empty?
+    assert_equal old_encrypted_password, User.find(users(:one).id).encrypted_password
+  end
+
+  test "Can't set user password to empty string" do
+    u = User.find(users(:one).id)
+    old_encrypted_password = u.encrypted_password
+    u.password = ""
+    u.password_confirmation = ""
+    u.save
+    assert u.errors.empty?
+    assert_equal old_encrypted_password, User.find(users(:one).id).encrypted_password
   end
   
   test "Can Change user's roles" do

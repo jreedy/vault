@@ -17,8 +17,14 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    put :update, :id => @user, :user => User.new(:username => 'myusername', :password => 'mypassword', :role_one => false)
+    updated_user = @user.attributes.slice('username', 'role_one', 'role_two', 'role_three')
+    updated_user['password'] = 'mypassword'
+    updated_user['password_confirmation'] = 'mypassword'
+    put :update, :id => @user, :user => updated_user
+    assert_response :redirect
     assert_redirected_to users_path()
+    assert assigns(:user)
+    assert_equal Digest::SHA1.hexdigest('mypassword'), User.find(@user.id).encrypted_password
   end
 
 end
