@@ -1,5 +1,14 @@
-== Vault
-Client Requirments
-We need a simple to use application to maintain system user passwords and the security  roles each user may possess.It should display the list of users in a table form with an indicator in the appropriate cell to show a user possesses a role.It should also allow the application user to change a users password. We only need three roles and three users. The roles and passwords must be persisted to storage to be used for next time the application is run.
-Note in addition to being persisted  passwords must be encrypted .
-Also please include a command line interface to the application.
+= Vault
+== Client Requirments
+
+* We need a simple to use application to maintain system user passwords and the security  roles each user may possess.It should display the list of users in a table form with an indicator in the appropriate cell to show a user possesses a role.It should also allow the application user to change a users password. We only need three roles and three users. The roles and passwords must be persisted to storage to be used for next time the application is run.
+
+* Note in addition to being persisted  passwords must be encrypted .
+
+* Also please include a command line interface to the application.
+
+== Implementation notes
+* Developed with Rails 3.2.1 and ruby 1.8.7 (2010-06-23 patchlevel 299)
+* Command-line interface started with script/vault-cli.rb
+
+
